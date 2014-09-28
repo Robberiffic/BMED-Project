@@ -1,7 +1,4 @@
 %%% Project Part 1
-%%% Created by Eric Robinson
-%%% Georgia Institue of Technology
-%%% Fall 2014
 
 close all
 clear all
@@ -35,14 +32,14 @@ h = zeros(1,length(t));
 
 
 %%%%%%%% INPUT
-% Uncomment to Simulate Problem 1
+% Uncomment to  Problem 1
 % I_in = zeros(1,length(t));
 
-% Uncomment to Simulate Problem 2
-% I_in = zeros(1,length(t));
-% I_in(1:round(.5./100.*length(t))) = (5e1);
+% Define excitation current for Problem 2
+I_in = zeros(1,length(t));
+I_in(1:round(.5./100.*length(t))) = (5e1);
 
-% Uncomment to Simulate Problem 3
+% Define excitation current for Problem 3
 I_in = zeros(1,length(t));
 I_in(1:end) = (5e1);
 %%%%%%%%
@@ -61,6 +58,7 @@ alpha_n = zeros(1,length(t));
 beta_n = zeros(1,length(t));
 alpha_h = zeros(1,length(t));
 beta_h = zeros(1,length(t));
+
 
 % Set intial conditions for n,m,h
 alpha_m0 = .1.*((25-Vrest)./(exp((25-Vrest)./10)-1));
@@ -84,10 +82,13 @@ h(1) = alpha_h0./(alpha_h0 + beta_h0);
 % Set initial conditions for Vm
 Vm(1) = Vrest;
 
+% Set intial conditons for current
+%I_ion(1) = 0;
+
 % Parse through every element of the time/membrane voltage vectors,
 % calculating m,n,h
 for ind = 1:length(t)-1
-    % Solve for membrane voltage via Euler's Method
+
     Vm(ind+1) = Vm(ind) + delta_t.*(I_ion(ind)./Cm);
     
     alpha_m(ind+1) = .1.*((25-Vm(ind+1))./(exp((25-Vm(ind+1))./10)-1));
